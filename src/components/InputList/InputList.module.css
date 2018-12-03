@@ -1,0 +1,7 @@
+@value colors: "../../support/colors.css";
+@value primary, secondary, tertiary from colors;
+
+.main {
+    width: 240px;
+    border-bottom: 3px solid secondary;
+}

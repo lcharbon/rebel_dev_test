@@ -1,0 +1,10 @@
+{
+    "1": "Add",
+    "2": "Remove Selected",
+    "3": "Clear",
+    "4": "Export to JSON",
+    "5": "Sort by Name",
+    "6": "Sort by Value",
+    "7": "Key/value pairs must be in the format <key>=<value>",
+    "8": "Items must be selected before they can be added."
+}

@@ -1,0 +1,28 @@
+.main {
+  text-align: center;
+  width: 800px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.input-list-container {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.key-value-list-container {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.controls {
+  display: inline-block;
+  margin: 0 40px;
+  width: 240px;
+}
+
+.control-button-container {
+  margin-bottom: 48px;
+}

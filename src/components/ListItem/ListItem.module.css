@@ -1,0 +1,27 @@
+@value colors: "../../support/colors.css";
+@value primary, secondary, tertiary from colors;
+
+.main {
+  box-sizing: border-box;
+  height: 30px;
+  border: 1px solid primary;
+  text-align: left;
+  padding: 0 12px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  line-height: 26px;
+  cursor: pointer;
+}
+
+.main-selected {
+  composes: main;
+  background-color: tertiary;
+}
+
+.main-selected {
+  composes: main;
+  background-color: tertiary;
+  color: white;
+  font-weight: 700;
+}

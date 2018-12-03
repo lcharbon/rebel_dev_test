@@ -1,0 +1,19 @@
+@value colors: "../../support/colors.css";
+@value primary, secondary, tertiary from colors;
+
+.main {
+    box-sizing: border-box;
+    height: 36px;
+    background-color: primary;
+    border-radius: 3.5px;
+    border: 1.5px solid secondary;
+    border-bottom-width: 3px;
+    line-height: 32px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.main:active {
+    background-color: tertiary;
+    color: white;
+}

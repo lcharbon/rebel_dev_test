@@ -118,6 +118,16 @@ class App extends Component {
     });
   }
 
+  deleteStagedItem(index) {
+    let newStagedItems = this.state.stagedItems.slice();
+
+    newStagedItems.splice(index, 1);
+    
+    this.setState({
+      stagedItems: newStagedItems
+    })
+  }
+
   setSelected(index, value) {
     let newListItems = this.state.listItems.slice();
 
@@ -143,6 +153,7 @@ class App extends Component {
           <InputList
             listItems={ this.state.stagedItems } 
             saveStagedItem={ this.saveStagedItem.bind(this) }
+            deleteStagedItem={ this.deleteStagedItem.bind(this) }
           />
         </div>
         <div className={ styles["controls"] }>

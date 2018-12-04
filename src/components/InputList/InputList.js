@@ -10,8 +10,15 @@ class InputList extends Component {
     super();
     this.state = {
       inputValues: {},
-      selectedInputs: []
+      selectedInputs: [],
+      focusedInputId: -1
     }
+  }
+
+  setFocusedInput(inputId) {
+    this.setState({
+      focusedInputId: inputId
+    })
   }
 
   render() {
@@ -25,6 +32,9 @@ class InputList extends Component {
                 inputId={ index }
                 data={ this.props.listItems[index] }
                 saveStagedItem={ this.props.saveStagedItem }
+                deleteStagedItem={ this.props.deleteStagedItem }
+                setFocusedInput={ this.setFocusedInput.bind(this) }
+                isFocused={ this.state.focusedInputId === index }
               />
             )
           })

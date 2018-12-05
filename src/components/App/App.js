@@ -59,7 +59,7 @@ class App extends Component {
 	}
 
 	onexportclick() {
-		let blob = new Blob([JSON.stringify(this.generateJSON(), null, 2)], {type : "application/json"});
+		let blob = new Blob([this.generateJSON()], {type : "application/json"});
 		let url = URL.createObjectURL(blob);
 		let downloadTag = document.createElement("a");
 		
@@ -136,13 +136,17 @@ class App extends Component {
 	}
 
 	generateJSON() {
-		let json = {};
+		let content = "";
 
-		this.state.listItems.forEach((listItem) => {
-			json[listItem.key] = listItem.value;
+		this.state.listItems.forEach((listItem, index) => {
+			if (index < this.state.listItems.length -1) {
+				content += `  "${listItem.key}": "${listItem.value}",\r\n`;
+			} else {
+				content += `  "${listItem.key}": "${listItem.value}"\r\n`;
+			}
 		});
 
-		return json;
+		return `{\r\n${content}}`;
 	}
 
 	render() {

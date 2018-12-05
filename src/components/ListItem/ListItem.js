@@ -8,12 +8,8 @@ class ListItem extends Component {
 		
 		this.props.setSelected(
 			this.props.itemId,
-			!this.props.data.selected
+			!this.props.isSelected
 		);
-	}
-
-	isSelected() {
-		return Boolean(this.props.data && this.props.data.selected);
 	}
 
 	inputValue() {
@@ -24,7 +20,7 @@ class ListItem extends Component {
 	render() {
 		return (
 			<div 
-				className={ this.isSelected() ? styles["main-selected"] : styles["main"] }
+				className={ this.props.isSelected ? styles["main-selected"] : styles["main"] }
 				onClick={ this.toggleSelected.bind(this) }
 			>
 				{ this.inputValue() }

@@ -12,7 +12,8 @@ class App extends Component {
 		super();
 		this.state = {
 			listItems: [],
-			stagedItems: []
+			stagedItems: [],
+			selectedPairIndex: -1
 		};
 	}
 	
@@ -40,14 +41,14 @@ class App extends Component {
 	}
 
 	onremoveclick() {
-		let newListItems = [];
-		let listItem;
+		let newListItems = this.state.listItems.slice();
 
-		for (listItem of this.state.listItems) {
-			if (listItem.selected !== true) newListItems.push(listItem);
-		}
+		newListItems.splice(this.state.selectedPairIndex, 1);
 
-		this.setState({ listItems: newListItems});
+		this.setState({ 
+			listItems: newListItems,
+			selectedPairIndex: -1
+		});
 	}
 
 	onclearclick() {
@@ -129,11 +130,9 @@ class App extends Component {
 	}
 
 	setSelected(index, value) {
-		let newListItems = this.state.listItems.slice();
-
-		newListItems[index].selected = value;
-
-		this.setState({ listItems: newListItems });
+		this.setState({
+			selectedPairIndex: value === true ? index : -1
+		});
 	}
 
 	generateJSON() {
@@ -198,6 +197,7 @@ class App extends Component {
 					<KeyValueList 
 						listItems={ this.state.listItems }
 						setSelected={ this.setSelected.bind(this) }
+						selectedPairIndex={ this.state.selectedPairIndex }
 					/>
 				</div>
 			</div>

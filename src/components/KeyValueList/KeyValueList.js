@@ -23,6 +23,7 @@ class KeyValueList extends Component {
 								itemId={ index }
 								data={ this.props.listItems[index] }
 								setSelected={ this.props.setSelected }
+								isSelected={ this.props.selectedPairIndex === index}
 							/>
 						);
 					})

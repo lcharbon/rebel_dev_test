@@ -14,8 +14,15 @@ class Input extends Component {
 	}
 
 	componentDidUpdate() {
-		if (this.props.isFocused) this.focus();
-		else this.blur();
+	
+		
+		if (this.props.isFocused) {
+			this.focus();
+		} else {
+			// Clears text from state when list item is deleted.
+			if (!this.props.data && this.state.text) this.setState({ text: "" });
+			this.blur();
+		} 
 	}
 
 	save() {
@@ -30,13 +37,14 @@ class Input extends Component {
 
 		if (components.length !== 2) {
 			alert($T("7"));
+			this.setState({ text: "" });
 			return false;
 		}
 
 		listItem = {  
-			key: components[0].trim(),
-			value: components[1].trim(),
-			selected: this.props.data ? this.props.data.selected : false
+			key: String(components[0]).trim(),
+			value: String(components[1]).trim(),
+			selected: this.props.data ? this.props.data.selected : true
 		};
 
 		this.props.saveStagedItem(this.props.inputId, listItem);
@@ -152,7 +160,7 @@ class Input extends Component {
 		event.stopPropagation();
 	}
 
-	oninputareadoubleclick(event) {
+	ondoubleclick(event) {
 		this.setFocus();
 		event.stopPropagation();
 	}
@@ -174,7 +182,6 @@ class Input extends Component {
 			return (
 				<div 
 					className={ styles["input-area"] }
-					onDoubleClick={ this.oninputareadoubleclick.bind(this) }
 				>
 					{ inputValue }
 				</div>
@@ -187,6 +194,7 @@ class Input extends Component {
 			<div 
 				className={ this.isSelected() ? styles["main-selected"] : styles["main"] }
 				onClick={ this.onclick.bind(this) }
+				onDoubleClick={ this.ondoubleclick.bind(this) }
 			>
 				{ this.renderInput() }
 			</div>

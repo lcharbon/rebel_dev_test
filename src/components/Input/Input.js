@@ -8,14 +8,13 @@ class Input extends Component {
 		super();
 
 		this.isFocused = false;
+		this.lastSaveAttempt = "";
 		this.state = {
 			text: "",
 		};
 	}
 
 	componentDidUpdate() {
-	
-		
 		if (this.props.isFocused) {
 			this.focus();
 		} else {
@@ -30,14 +29,19 @@ class Input extends Component {
 		let listItem = {};
 		let isEmpty = !this.state.text;
 
+		if (this.state.text === this.lastSaveAttempt) return;
+		
+		this.lastSaveAttempt = this.state.text;
+
 		if (isEmpty) {
 			if (this.props.data) this.props.deleteStagedItem(this.props.inputId);
+			this.props.setFocusedInput(-1);
 			return false;
 		}
 
 		if (components.length !== 2) {
 			alert($T("7"));
-			this.setState({ text: "" });
+			this.inputDOM.focus();
 			return false;
 		}
 
@@ -59,22 +63,19 @@ class Input extends Component {
 		
 		// Key Up
 		if (event.which === 38 && wasId > 0) {
+			if (this.save()) this.props.setFocusedInput(wasId -1);
 			event.preventDefault();
-			this.save();
-			this.props.setFocusedInput(wasId -1);
 		}
 
 		// Key Down
 		if (event.which === 40 && wasId < settings.inputs) {
-			this.save();
-			this.props.setFocusedInput(wasId + 1);
+			if (this.save()) this.props.setFocusedInput(wasId + 1);
 			event.preventDefault();
 		}
 
 		// Enter Key
 		if (event.which === 13 && wasId < settings.inputs) {
-			this.save();
-			this.props.setFocusedInput(wasId + 1);
+			if (this.save()) this.props.setFocusedInput(wasId + 1);
 			event.preventDefault();
 		}
 	}
@@ -96,7 +97,7 @@ class Input extends Component {
 	}
 
 	focus() {
-		if (this.isFocused === false && this.inputDOM) {
+		if (this.isFocused === false) {
 			this.setState({
 				text: this.inputValue()
 			});
@@ -117,6 +118,8 @@ class Input extends Component {
 			document.removeEventListener("keydown", this.keylistenserHandler);
 
 			this.setState({ text: "" });
+
+			if (this.inputDOM) this.inputDOM.blur();
 		}
 	}
 
@@ -143,8 +146,7 @@ class Input extends Component {
 
 	oninputblur() {
 		if (this.props.isFocused) {
-			this.save();
-			this.props.setFocusedInput(-1);
+			if (this.save()) this.props.setFocusedInput(-1);
 		}
 	}
 
